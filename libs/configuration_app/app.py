@@ -33,8 +33,9 @@ def save_credentials():
     ssid = request.form['ssid']
     wifi_key = request.form['wifi_key']
     ssh_enabled = request.form['ssh_enabled'] if 'ssh_enabled' in request.form else False
+    ssid_hidden = request.form['ssid_hidden'] if 'ssid_hidden' in request.form else False
 
-    create_wpa_supplicant(ssid, wifi_key)
+    create_wpa_supplicant(ssid, wifi_key, ssid_hidden)
 
     # Call set_ap_client_mode() in a thread otherwise the reboot will prevent
     # the response from getting to the browser
@@ -87,7 +88,7 @@ def scan_wifi_networks():
     return ap_array
 
 
-def create_wpa_supplicant(ssid, wifi_key):
+def create_wpa_supplicant(ssid, wifi_key, hidden):
     temp_conf_file = open('wpa_supplicant.conf.tmp', 'w')
 
     temp_conf_file.write('country=pl\n')
@@ -96,6 +97,8 @@ def create_wpa_supplicant(ssid, wifi_key):
     temp_conf_file.write('\n')
     temp_conf_file.write('network={\n')
     temp_conf_file.write('	ssid="' + ssid + '"\n')
+    if hidden:  # only required when the SSID is hidden
+        temp_conf_file.write('	scan_ssid=1\n')  # TODO TEST (Also in OrbOS)
 
     if wifi_key == '':
         temp_conf_file.write('	key_mgmt=NONE\n')

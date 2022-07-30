@@ -9,16 +9,20 @@
     <form action="{{ url_for('save_credentials') }}" method=post>
       <div class="form-group">
         <label for="ssid">Network SSID</label>
-        <input type="password" name="ssid", class="wifiNetworkInputs form-control">
+        <input type="password" name="ssid" class="wifiNetworkInputs form-control">
       </div>
       <div class="form-group">
         <label for="wifi_key">Wifi password</label>
-        <input type="password" name="wifi_key", class="wifiNetworkInputs form-control">
+        <input type="password" name="wifi_key" class="wifiNetworkInputs form-control">
       </div>
       <details><summary>Advanced (optional)</summary>
         <div class="form-group">
           <label for="ssh_enabled">SSH enabled</label>
           <input type="checkbox" name="ssh_enabled" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="ssid_hidden">Hidden network</label>
+          <input type="checkbox" name="ssid_hidden" class="form-control">
         </div>
       </details>
       <button type="submit" class="wifiConnectButton btn btn-lg btn-success btn-block">Submit</button>

@@ -102,7 +102,7 @@ def reset_to_host_mode(reboot=True):
     if reboot:
         os.system('reboot')
     else:
-        print('Reseted to host mode. Reboot is required.')
+        print('Reset to host mode. Reboot is required.')
 
 
 def set_ap_client_mode():

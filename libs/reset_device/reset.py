@@ -1,4 +1,3 @@
-import RPi.GPIO as GPIO
 import os
 import re
 import time
@@ -53,9 +52,6 @@ def wait_for_eth_wired(interface):
     return eth_cable_connected(interface)
 
 
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(18, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-
 counter = 0
 serial_last_four = get_serial()
 serial_last_four = ' ' + serial_last_four[-4:] if len(
@@ -75,21 +71,3 @@ if reset_lib.is_host_mode():
 
 if reboot_required:
     os.system('reboot')
-
-# This is the main logic loop waiting for a button to be pressed on GPIO 18 for 10 seconds.
-# If that happens the device will reset to its AP Host mode allowing for reconfiguration on a new network.
-while True:
-    while GPIO.input(18) == 1:
-        time.sleep(1)
-        counter = counter + 1
-
-        print(counter)
-
-        if counter == 9:
-            reset_lib.reset_to_host_mode()
-
-        if GPIO.input(18) == 0:
-            counter = 0
-            break
-
-    time.sleep(1)

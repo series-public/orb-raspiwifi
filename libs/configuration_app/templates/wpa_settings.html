@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+  <div id="mainContent">
+
+    <a href="/"><img class="mb-4" src="{{ url_for('static', filename='orb.svg') }}" alt="" height="125"></a>
+    <h1>WPA Setup</h1>
+
+    <div id="wpaCredentialsForm">
+      <form action="{{ url_for('save_wpa_credentials') }}" method=post>
+        <div class="form-group">
+          <label for="wpa_key">WPA Key</label>
+          <input type="text" name="wpa_key" value={{wpa_key}} class="wifiNetworkInputs form-control">
+        </div>
+        <div class="form-check">
+          {% if wpa_enabled == '1': %}
+            <input class="form-check-input" type="checkbox" value="1" name="wpa_enabled" id="wpa_enabled" class="wpaEnabledCheckbox" checked>
+            <label class="form-check-label" for="wpa_enabled">
+              Enable WPA
+            </label>
+          {% else: %}
+            <input class="form-check-input" type="checkbox" value="1" name="wpa_enabled" id="wpa_enabled" class="wpaEnabledCheckbox">
+            <label class="form-check-label" for="wpa_enabled">
+              Enable WPA
+            </label>
+          {% endif %}
+        </div>
+        <button type="submit", class="wifiConnectButton btn btn-lg btn-success btn-block mt-3">Submit</button>
+      </form>
+
+    </div>
+  </div>
+{% endblock %}

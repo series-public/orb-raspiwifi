@@ -1,0 +1,47 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+  <div id="mainContent">
+
+    <a href="/"><img class="mb-4" src="{{ url_for('static', filename='orb.svg') }}" alt="" height="125"></a>
+    <h1>WiFi Setup</h1>
+
+    <form action="{{ url_for('save_credentials') }}" method=post>
+      <div class="form-group wifiNetwork">
+        <label for="ssid">Select your WiFi network</label>
+        <select id="ssid" name="ssid", class="form-control wifiNetworkInputs">
+          {% for ssid in wifi_ap_array %}
+            <option value='{{ ssid }}'>{{ ssid }}</option>
+          {% endfor %}
+        </select>
+        <a href="{{ url_for('manual_ssid_entry') }}" class="manualSSIDEntry small d-block text-success">Manual SSID entry</a>
+      </div>
+      <div class="form-group">
+        <label for="wifi_key">Your Wifi password</label>
+        <input type="password" name="wifi_key", class="wifiNetworkInputs form-control">
+      </div>
+      <details><summary>Advanced (optional)</summary>
+        <div class="form-group">
+          <label for="ssh_enabled">SSH enabled</label>
+          <input type="checkbox" name="ssh_enabled" class="form-control">
+        </div>
+      </details>
+      <button type="submit", class="wifiConnectButton btn btn-lg btn-success btn-block">Submit</button>
+    </form>
+
+
+    <!-- <div id="wpaStatus" class="alert alert-warning mt-3" role="alert">
+      {% if config_hash['wpa_enabled'] == '1': %}
+        WPA Mode: <span class="font-weight-bold">ENABLED</span><br />
+        Key: <span class="font-weight-bold">{{ config_hash['wpa_key'] }}</span><br />
+        <a href="{{ url_for('wpa_settings') }}" class="alert-link">Click to configure</a>
+      {% endif %}
+
+      {% if config_hash['wpa_enabled'] == '0': %}
+        WPA Mode: DISABLED<br />
+        <a href="{{ url_for('wpa_settings') }}" class="alert-link">Click to configure</a>
+      {% endif %}
+    </div> -->
+
+  </div>
+{% endblock %}

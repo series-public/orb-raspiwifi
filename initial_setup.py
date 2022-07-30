@@ -29,7 +29,7 @@ print("##### RaspiWiFi Intial Setup  #####")
 print("###################################")
 print()
 print()
-entered_ssid = "Orb" + get_serial()[-4:]  # Get last 4 characters of serialno.
+entered_ssid = "Orb" + get_serial()[-4:].upper()  # Get last 4 characters of serialno.
 setup_lib.install_prereqs()
 setup_lib.copy_configs()
 setup_lib.update_main_config_file(entered_ssid)
